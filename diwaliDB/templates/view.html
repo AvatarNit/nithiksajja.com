@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Total Tables: {{ tableCount }}</h1>
+<div class="accordion" id="accordionExample">
+    {% for table in tableInfo %}
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button {% if focusNum != table.id %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ table.id }}" aria-expanded="false" aria-controls="collapse{{ table.id }}">
+                        Table {{ table.tableNum }}
+                    </button>
+                </h2>
+                <div id="collapse{{ table.id }}" class="accordion-collapse collapse {% if focusNum == table.id %}show{% endif %}" {% if focusNum == table.id %}autofocus{% endif %} data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong class="fs-3">Total Seats: {{ table.totalSeats }}</strong>
+                        <div class="row row-cols-2 ps-5">
+                            {% for p in table.people %}
+                                <div class="form-check form-switch fs-3 col">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" disabled {% if p in table.arrived %} checked {% endif %}>
+                                    <label class="form-check-label" for="flexSwitchCheckDisabled">{{ p }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if session.get("admin","F") == "T" %}
+                        <div class="container text-center">
+                                <a class="btn btn-info col fs-3" href="/edit/{{ table.id }}">Edit</a>
+                                <a class="btn btn-danger col fs-3" href="/delete/{{ table.id }}">Delete</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+</div>
+{% endblock %}

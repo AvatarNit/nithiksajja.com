@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete Table {{ table.tableNum }}</h1>
+<h2>Please type the table number and Admin's Name</h2>
+<form action="/view" method="POST" class="text-center">
+    <div class="form-floating mb-3">
+        <input name="tableNum" type="number" class="form-control" id="floatingInput" placeholder="Table Number" autocomplete="off">
+        <label for="floatingInput">Table Number</label>
+    </div>
+    <div class="form-floating">
+        <input name="aName" type="text" class="form-control" id="floatingPassword" placeholder="Admin's Name" autocomplete="off">
+        <label for="floatingPassword">Admin's Name</label>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <button type="submit" class="btn btn-danger" formaction="/view" formmethod="GET">Cancel</button>
+        <button type="submit" class="btn btn-success">Delete</button>
+    </div>
+    <input type="hidden" value="D" name="action">
+    <input type="hidden" value="{{ table.id }}" name="tableId">
+</form>
+{% endblock %}

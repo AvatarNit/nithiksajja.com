@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form class="w-50 mx-auto mt-4" action="/success" method="post">
+        <h2>Update Your Pet Information</h2>
+        <input type="hidden" name="ind" value="{{ index }}">
+        
+        <div class="form-floating mb-3">
+            <input value="{{ pet_info.owner }}" type="text" class="form-control" id="owner-name" placeholder="Owner's Name" name="owner" autocomplete="off" autofocus required>
+            <label for="owner-name">Owner's Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input value="{{ pet_info.pet }}" type="text" class="form-control" id="pet-name" placeholder="Pet's Name" name="pet" autocomplete="off" required>
+            <label for="pet-name">Pet's Name</label>
+        </div>
+
+        <select name="pet-type" class="form-select form-select-lg mb-3" aria-label="Large select example" required>
+            <option selected disabled>What type of pet do you have?</option>
+            {% for type in pet_types %}
+            <option
+            {% if type.lower() == pet_info.type.lower() %}selected{% endif %}
+            value="{{ type }}">{{ type.title() }}</option>
+            {% endfor %}
+        </select>
+
+        <h5>What services are you interested in?</h5>
+
+        {% for service in services%}
+
+        <div class="form-check">
+            <input name="service"class="form-check-input" type="checkbox" value="{{ service }}" id="{{ service }}--service" {% if service in pet_info.services %}checked{% endif %}>
+            <label class="form-check-label" for="{{ service }}--service">
+              {{ service.title() }}
+            </label>
+          </div>
+
+        {% endfor %}
+
+        <button type="submit" class="btn btn-dark mt-3">Save Changes</button>
+    </form>
+{% endblock %}

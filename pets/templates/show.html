@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table class = "table w-75 mx-auto mt-4 table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Owner's Name</th>
+                <th>Pet's Name</th>
+                <th>Species</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for pet in all_pets %}
+                <tr>
+                    <td>{{ pet.get("owner") }}</td>
+                    <td>{{ pet["pet"] }}</td>
+                    <td>{{ pet.type }}</td>
+                    <td>
+                        <a href="/edit/{{ loop.index0 }}" class="text-decoration-none">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="/confirm-delete/{{ loop.index0 }}" class="text-decoration-none">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+{% endblock %}

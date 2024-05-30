@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table class = "table w-75 mx-auto mt-4 table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Owner's Name</th>
+                <th>Pet's Name</th>
+                <th>Species</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for pet in grooming_pets %}
+                <tr>
+                    <td>{{ pet.get("owner") }}</td>
+                    <td>{{ pet["pet"] }}</td>
+                    <td>{{ pet.type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+{% endblock %}

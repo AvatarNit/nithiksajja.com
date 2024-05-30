@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="form-signin text-center" action="/view" method="POST">
+        <h1>Welcome to IAI Diwali</h1>
+        <img class="mb-4" src="/static/iai.jpeg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please check in</h1>
+        <div class="form-floating input-group input-group-lg pb-3">
+            <input name="name" type="text" class="form-control" id="floatingName" placeholder="Full Name" required autofocus autocomplete="off">
+            <label for="floatingName">Full Name</label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Check In</button>
+        <input type="hidden" value="L" name="action">
+    </form>
+{% endblock %}

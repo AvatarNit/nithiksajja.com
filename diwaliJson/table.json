@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "count": 10,
+    "people": [
+      "test1",
+      "test2",
+      "test3",
+      "test4",
+      "test5"
+    ],
+    "checked": [
+      "test1",
+      "test4",
+      "test5"
+    ],
+    "notChecked": [
+      "test2",
+      "test3"
+    ]
+  },
+  {
+    "id": 2,
+    "count": 10,
+    "people": [],
+    "checked": [],
+    "notChecked": []
+  },
+  {
+    "id": 3,
+    "count": 10,
+    "people": [],
+    "checked": [],
+    "notChecked": []
+  }
+]

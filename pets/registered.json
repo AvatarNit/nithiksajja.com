@@ -1,0 +1,59 @@
+[
+  {
+    "owner": "Mike",
+    "pet": "Ruby",
+    "type": "Dog",
+    "services": [
+      "grooming",
+      "training"
+    ]
+  },
+  {
+    "owner": "Sokka",
+    "pet": "Hawkey",
+    "type": "Dog",
+    "services": [
+      "grooming",
+      "boarding",
+      "training",
+      "agility"
+    ]
+  },
+  {
+    "owner": "Toph",
+    "pet": "Twinkle Toes",
+    "type": "Dog",
+    "services": [
+      "grooming",
+      "boarding",
+      "agility"
+    ]
+  },
+  {
+    "owner": "Katara",
+    "pet": "Aangy",
+    "type": "Rabbit",
+    "services": [
+      "boarding",
+      "training"
+    ]
+  },
+  {
+    "owner": "Iron Man",
+    "pet": "Rocky",
+    "type": "Reptile",
+    "services": [
+      "training",
+      "agility"
+    ]
+  },
+  {
+    "owner": "Nithik",
+    "pet": "Logan",
+    "type": "Mouse",
+    "services": [
+      "training",
+      "agility"
+    ]
+  }
+]

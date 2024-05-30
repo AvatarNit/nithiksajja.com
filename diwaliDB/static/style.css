@@ -1,0 +1,163 @@
+/* add your custom stye rules below if it conflicts with pico or bootstrap
+   add the !important property to the end of the style rule as shown in the
+   example below  */
+
+
+.success {
+    color: #07a787;
+    border-color: #07a787;
+}
+
+.error {
+    color: #ff7870;
+    border-color: #ff7870;
+}
+
+.flashed {
+    background-color: rgba(240, 240, 240, .2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    border: 3px solid;
+    /* color: #ff7870; */
+    padding: .5rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.flashed p {
+    margin: 0;
+    padding: 0;
+}
+
+.icon {
+    font-size: 3rem;
+}
+
+.form-create {
+    padding: 2rem 2rem;
+}
+
+.Tgrid {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-areas:
+        "p1 p2"
+        "p3 p4"
+        "p5 p6"
+        "p7 p8"
+        "p9 p10"
+        "btnG btnG";
+    gap: 1.75rem 3rem;
+}
+
+
+.p1 {
+    grid-area: p1;
+}
+
+.p2 {
+    grid-area: p2;
+}
+
+.p3 {
+    grid-area: p3;
+}
+
+.p4 {
+    grid-area: p4;
+}
+
+.p5 {
+    grid-area: p5;
+}
+
+.p6 {
+    grid-area: p6;
+}
+
+.p7 {
+    grid-area: p7;
+}
+
+.p8 {
+    grid-area: p8;
+}
+
+.p9 {
+    grid-area: p9;
+}
+
+.p10 {
+    grid-area: p10;
+}
+
+.btnG {
+    grid-area: btnG;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+
+.cover-heading {
+    text-align: center;
+}
+.cover {
+    position: relative;
+    background-image: url("/static/diwali_image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: soft-light;
+    height: 92vh;
+    padding: 2rem;
+}
+
+.cover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .55);
+    z-index: 1;
+}
+
+.text-center {
+    position: relative;
+    z-index: 2;
+}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" action="/checkin">
+    <h1>Check In</h1>
+    <input type="text" name="name" placeholder="Full Name" autofocus required>
+    <button type="submit">Enter</button>
+</form>
+{% endblock %}

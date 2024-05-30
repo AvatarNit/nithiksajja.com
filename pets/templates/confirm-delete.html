@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form class="w-50 mx-auto mt-4" action="/delete" method="post">
+    <h2>Delete Pet Information</h2>
+    <input type="hidden" name="ind" value="{{ index }}">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="owner-name" placeholder="Owner's Name" name="owner" autocomplete="off" autofocus required>
+        <label for="owner-name">Owner's Name</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input  type="text" class="form-control" id="pet-name" placeholder="Pet's Name" name="pet" autocomplete="off" required>
+        <label for="pet-name">Pet's Name</label>
+    </div>
+    <div class="alert alert-danger text-center" role="alert">
+        Are you sure?
+      </div>
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success"><a href="/show" class="text-decoration-none text-reset">No</a></button>
+        <button type="submit" class="btn btn-danger">Yes</button>
+    </div>
+</form>
+
+{% endblock %}

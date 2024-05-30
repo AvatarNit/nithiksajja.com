@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Table {{ tableInfo.id }}</h1>
+<h2>Total: {{ tableInfo.count }}</h2>
+<h2>Total Arrived: {{ (tableInfo.checked)|length }}</h2>
+
+<form method="post" action="/success/{{ tableInfo.id }}">
+    {% for person in tableInfo.people %}
+    <label>
+        <input name="{{ person }}" type="checkbox" role="switch"
+        {% if person in tableInfo.checked %} checked {% endif %}
+        {% if not admin %} disabled {% endif %}/>
+        {{ person }}
+    </label>
+    {% endfor %}
+    {% if admin %} <button type="submit">Save</button> {% endif %}
+</form>
+
+
+{% endblock %}

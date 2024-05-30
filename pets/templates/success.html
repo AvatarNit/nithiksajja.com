@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="card mx-auto mt-4" style="width: 22rem;">
+        <img src="static/friends.svg" class="card-img-top" alt="cute pet">
+        <div class="card-body">
+        <h5 class="card-title">Congrats {{ owner_name }}!</h5>
+        <p>{{  pet_name }} has been registered.<br>
+            We look forward to taking care of your {{ pet_type }} {{ pet_name }} soon.
+        </p>
+        <a href="/register" class="btn btn-primary">Register Another Pet</a>
+        </div>
+    </div>
+
+{% endblock %}
