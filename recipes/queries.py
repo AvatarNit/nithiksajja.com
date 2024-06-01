@@ -17,6 +17,27 @@ def get_display_info():
     #     result.append(i)
     return split_list(result,4)
 
+def get_categories():
+    sql = """SELECT DISTINCT category FROM recipes"""
+    result = db.execute(sql)
+    return result
+
+def get_classes():
+    sql = """SELECT DISTINCT class FROM recipes"""
+    result = db.execute(sql)
+    return result
+
+def filter(filterCategory, filterClass):
+    if filterCategory != "Meal Type" and filterClass != "Requirements":
+        sql = """SELECT name,description,picName FROM recipes WHERE category=? AND class=?"""
+        result = db.execute(sql,filterCategory,filterClass)
+    elif filterCategory!= "Meal Type":
+        sql = """SELECT name,description,picName FROM recipes WHERE category=?"""
+        result = db.execute(sql,filterCategory)
+    elif filterClass!= "Requirements":
+        sql = """SELECT name,description,picName FROM recipes WHERE class=?"""
+        result = db.execute(sql,filterClass)
+    return split_list(result,4)
 
 # Admin Database
 

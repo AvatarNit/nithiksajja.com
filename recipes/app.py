@@ -27,6 +27,18 @@ def index():
     displayInfo = q.get_display_info()
     return render_template("index.html", displayInfo=displayInfo)
 
+# Recipe Related Routes
+
+@app.route("/viewRecipes", methods=["GET", "POST"])
+def viewRecipes():
+    if request.method == "POST":
+        filterCategory = request.form.get('category', "Meal Type")
+        filterClass = request.form.get("class", "Requirements")
+        displayInfo = q.filter(filterCategory, filterClass)
+    else:
+        displayInfo = q.get_display_info()
+    categories = q.get_categories()
+    return render_template("viewRecipes.html", displayInfo=displayInfo, categories=categories)
 
 # History Related routes
 
