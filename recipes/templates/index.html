@@ -20,163 +20,23 @@
 <section class="menu" id="menu">
   <h3>Menu</h3>
   <h2><i class="fa-solid fa-arrow-down"></i> Delicious Dishes Are Here <i class="fa-solid fa-arrow-down"></i></h2>
-
-
-  <div class="row" style="margin-top: 30px;">
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/Mangalorean_Chicken.png" alt="">
-        <div class="card-body">
-          <h3>M Chicken</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
+  
+  {% for row in displayInfo %}
+    {% for recipe in row%}
+      <div class="row" style="margin-top: 30px;">
+        <div class="col-md-3 py-3 py-md-0">
+          <div class="card">
+            <img src="{{ recipe.picName }}" alt="{{ recipe.name }} Picture" class="m-3">
+            <div class="card-body">
+              <h3>{{ recipe.name }}</h3>
+              <h6>{{ recipe.description }}</h6>
+              <a href="/viewRecipe/{{ recipe.name }}" id="home-btn">View Recipe <i class="fa-solid fa-angles-right"></i></a>
+            </div>
           </div>
-
-          <p></p>
         </div>
       </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/Garlic_Fried.png" alt="">
-        <div class="card-body">
-          <h3>Garlic Fried</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/Grilled_beef_steak.png" alt="">
-        <div class="card-body">
-          <h3>G Beef Steak</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/Pineapple_Fried_Rice.png" alt="">
-        <div class="card-body">
-          <h3>Fried Rice</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-
-
-
-  <div class="row" style="margin-top: 30px;">
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/Grilled_pork_ribs.png" alt="">
-        <div class="card-body">
-          <h3>Pork Ribs</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/crispy_fried.png" alt="">
-        <div class="card-body">
-          <h3>Crispy Fried</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/sushi__japanese.png" alt="">
-        <div class="card-body">
-          <h3>Sushi Japanes</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="/static/images/Lyulya_kebab.png" alt="">
-        <div class="card-body">
-          <h3>Lyulya Kebab</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p></p>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
+    {% endfor %}
+  {% endfor %}
 </section>
 <!-- Our Menu End -->
 {% endblock %}
