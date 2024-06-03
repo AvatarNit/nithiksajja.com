@@ -201,3 +201,7 @@ html::-webkit-scrollbar{
     position: relative;
     margin-right: 20px;
 }
+
+.navbar-nav {
+    margin-left: auto; /* Move navbar links to the right */
+}

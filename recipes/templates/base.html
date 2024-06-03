@@ -24,8 +24,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&display=swap" rel="stylesheet">
     <!-- GOOGLE FONTS LINK -->
-  {% block script %}
-  {% endblock %}
 </head>
 
 <body>
@@ -51,7 +49,12 @@
     <span><i class="fa-solid fa-bars"></i></span>
   </button>
   <div class="collapse navbar-collapse" id="mynavbar">
-    <ul class="navbar-nav me-auto">
+    <ul class="navbar-nav">
+      {% if session.get("currentRecipe", None) %}
+        <li class="nav-item">
+          <a href="/viewRecipe/{{ session.get('currentRecipe') }}" class="nav-link">Current Recipe</i></a>
+        </li>
+      {% endif %}
       <li class="nav-item">
         <a href="/" class="nav-link">Home</a>
       </li>
@@ -64,15 +67,15 @@
       <li class="nav-item">
         <a href="nithiksajja.com/contact" class="nav-link">Contact</a>
       </li>
+      {% if session.get("admin","F") == "T" %}
+        <li class="nav-item">
+          <a href="/addRecipe" class="nav-link">Add Recipe</a>
+        </li>
+      {% endif %}
     </ul>
-
-    <form class="d-flex">
-      <input type="text" class="form-control me-2" placeholder="Search" required>
-      <button type="button" id="btn">Search</button>
-    </form>
-
   </div>
 </nav>
+<!-- Navbar End -->
 <div class="container mt-4">
   {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -84,7 +87,6 @@
       {% endif %}
   {% endwith %}
 </div>
-<!-- Navbar End -->
     {% block content %}
     
     {% endblock %}
