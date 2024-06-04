@@ -27,6 +27,10 @@ def get_classes():
     result = db.execute(sql)
     return result
 
+def addRecipe(name, description, videoUrl, cookTime, servings, category, class_, ingredients, instructions, picName):
+    sql = """INSERT INTO recipes (name, description, videoUrl, cookTime, servings, category, class, ingredients, instructions, picName) VALUES (?,?,?,?,?,?,?,?,?,?)"""
+    return db.execute(sql, name, description, videoUrl, cookTime, servings, category, class_, ingredients, instructions, picName)
+
 def filter(filterCategory, filterClass):
     if filterCategory != "Meal Type" and filterClass != "Requirements":
         sql = """SELECT name,description,picName FROM recipes WHERE category=? AND class=?"""

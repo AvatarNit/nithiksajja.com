@@ -1,3 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poetsen+One&display=swap');
+
+:root {
+    --pri-color: #c52f21;
+    --sec-color: #f17961;
+    --con-color: #525f7a;
+    --light-color: #eff1f4;
+    --dark-color: #181c25;
+}
+
+.poetsen-one-regular {
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.pacifico-regular {
+    font-family: "Pacifico", cursive;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: capitalize;
+    font-size: 1.3rem;
+    color: var(--pri-color);
+}
+
+.login-form {
+    margin: auto;
+    max-width: 40vw;
+}
+#home-grid {
+    margin: 1rem;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr 0.25fr;
+    grid-template-areas:
+        "img title title title"
+        "img body body body"
+        "img b g p"
+        "x x a y";
+}
+
+#home-grid img {
+    grid-area: img;
+    padding: 1rem;
+}
+
+#home-grid h1 {
+    grid-area: title;
+}
+
+#home-grid h3 {
+    grid-area: body;
+}
+
+#b {
+    grid-area: b;
+}
+
+#g {
+    grid-area: g;
+}
+
+#p {
+    grid-area: p;
+}
+
+#home-grid button {
+    border-color: red;
+    border-width: 5px;
+    border-radius: 20px;
+    margin: 1rem;
+}
+
+#home-grid a {
+    grid-area: a;
+    margin-left: 2.5rem;
+}
+
+.steps-div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.column {
+    flex: 1;
+    margin: 10px;
+    text-align: center;
+}
+
+.column img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+.column button {
+    margin-top: 10px;
+}
+
+.column i {
+    font-size: 48px;
+    margin-top: 10px;
+}
+
+.flashed {
+    background-color: rgba(240,240,240,.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid;
+    border-radius:1rem;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    padding: .5rem 1.5rem;
+}
+
+.success {
+    color: #07a787;
+    border-color: #07a787;
+}
+.error {
+    color: #ff7870;
+    border-color: #ff7870;
+}
+
+.male {
+    color: skyblue;
+}
+
+.female {
+    color: pink;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -6,6 +142,7 @@
     scroll-behavior: smooth;
     font-family: 'Josefin Sans', sans-serif;
 }
+
 html::-webkit-scrollbar-track{
     background: transparent;
 }
@@ -51,9 +188,6 @@ html::-webkit-scrollbar{
 }
 /* Navbar End */
 
-
-
-
 /* Home Section Start */
 .home{
     width: 100%;
@@ -98,10 +232,7 @@ html::-webkit-scrollbar{
 }
 /* Home Section End */
 
-
-
-
-/* Our Menu Strat */
+/* Our Menu Start */
 .menu{
     padding: 100px 11% 100px;
 }
@@ -135,53 +266,52 @@ html::-webkit-scrollbar{
 }
 /* Our Menu End */
 
-
 .form-signin {
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
-  }
+}
   
-  .form-signin .checkbox {
+.form-signin .checkbox {
     font-weight: 400;
-  }
+}
   
-  .form-signin .form-control {
+.form-signin .form-control {
     position: relative;
     box-sizing: border-box;
     height: auto;
     padding: 10px;
     font-size: 16px;
-  }
+}
   
-  .form-signin .form-control:focus {
+.form-signin .form-control:focus {
     z-index: 2;
-  }
+}
   
-  .form-signin input[type="text"] {
+.form-signin input[type="text"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-  }
+}
   
-  .form-signin input[type="password"] {
+.form-signin input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-  }
+}
 
-  .success {
+.success {
     color: #07a787;
     border-color: #07a787;
-  }
+}
   
-  .error {
+.error {
     color: #ff7870;
     border-color: #ff7870;
-  }
+}
   
-  .flashed {
+.flashed {
     background-color: rgba(240, 240, 240, .2);
     display: flex;
     justify-content: center;
@@ -191,7 +321,7 @@ html::-webkit-scrollbar{
     padding: .5rem 1.5rem;
     margin-bottom: 1rem;
     border-radius: 1rem;
-  }
+}
 
 .custom-logo {
     width: 150px; /* Adjust the width as needed */
@@ -204,4 +334,107 @@ html::-webkit-scrollbar{
 
 .navbar-nav {
     margin-left: auto; /* Move navbar links to the right */
+}
+
+/* Additional Styles for Recipe Form */
+.container {
+    max-width: 900px;
+}
+
+.form-floating {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: var(--pri-color);
+    color: white;
+    border: none;
+}
+
+.form-control:focus {
+    border-color: var(--pri-color);
+    box-shadow: 0 0 0 0.2rem rgba(197, 47, 33, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--pri-color);
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: var(--sec-color);
+}
+
+input::placeholder {
+    color: var(--con-color);
+    opacity: 0.7;
+}
+
+h1, h2 {
+    color: var(--pri-color);
+    margin-bottom: 1rem;
+}
+
+input, select, label {
+    font-size: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+/* Additional Styles for Recipe Form */
+.container {
+    max-width: 900px;
+}
+
+.form-floating {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: var(--pri-color);
+    color: white;
+    border: none;
+}
+
+.form-control:focus {
+    border-color: var(--pri-color);
+    box-shadow: 0 0 0 0.2rem rgba(197, 47, 33, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--pri-color);
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: var(--sec-color);
+}
+
+input::placeholder {
+    color: var(--con-color);
+    opacity: 0.7;
+}
+
+h1, h2 {
+    font-family: 'Poetsen One', sans-serif; /* Change font family */
+    color: var(--pri-color);
+    margin-bottom: 1rem;
+}
+
+input, select, label {
+    font-size: 1rem;
 }

@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&display=swap" rel="stylesheet">
     <!-- GOOGLE FONTS LINK -->
+    {% block script %}{% endblock %}
 </head>
 
 <body>
@@ -64,9 +65,11 @@
       <li class="nav-item">
         <a href="/convert" class="nav-link">Measurement Conversion</a>
       </li>
-      <li class="nav-item">
-        <a href="nithiksajja.com/contact" class="nav-link">Contact</a>
-      </li>
+      {% if session.get("admin","F") == "F" %}
+        <li class="nav-item">
+          <a href="nithiksajja.com/contact" class="nav-link">Contact</a>
+        </li>
+      {% endif %}
       {% if session.get("admin","F") == "T" %}
         <li class="nav-item">
           <a href="/addRecipe" class="nav-link">Add Recipe</a>
