@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_session import Session
 import queries as q
+import os
 
 app = Flask(__name__)
 app.secret_key = "secretcode1234"
@@ -8,7 +9,25 @@ app.secret_key = "secretcode1234"
 # Configure Session
 app.config["SESSION_PERMENANT"] = False
 app.config["SESSION_TYPE"] = 'filesystem'
+UPLOAD_FOLDER = 'static/food'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 Session(app)
+
+# Ensure the upload folder exists
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     if 'file' not in request.files:
+#         return 'No file part'
+#     file = request.files['file']
+#     if file.filename == '':
+#         return 'No selected file'
+#     if file:
+#         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+#         file.save(file_path)
+#         return f'File successfully uploaded to {file_path}'
 
 # General Routes
 
@@ -39,6 +58,37 @@ def viewRecipes():
         displayInfo = q.get_display_info()
     categories = q.get_categories()
     return render_template("viewRecipes.html", displayInfo=displayInfo, categories=categories)
+
+@app.route("/addRecipe", methods=["GET", "POST"])
+def addRecipe():
+    if request.method == "GET":
+        return render_template("addRecipe.html")
+    elif request.method == "POST":
+        name = request.form.get("name")
+        description = request.form.get("description")
+        videoUrl = request.form.get("videoUrl", None)
+        cookTime = request.form.get("cookTime", None)
+        servings = request.form.get("servings", None)
+        category = request.form.get("category", None)
+        class_ = request.form.get("class", None)
+        instructionsCount = request.form.get("instructions-count")
+        ingredientsCount = request.form.get("ingredients-count")
+        for i in range(1,int(instructionsCount)):
+            instructions = instructions + f"_{i}. " + request.form.get(f"instruction-{i}")
+        for i in range(1,int(ingredientsCount)):
+            ingredients = f"{ingredients},{request.form.get('ingredientsNum-' + i)}_{request.form.get('ingredientsMeasure-' + i)}:{request.form.get('ingredientsName-' + i)}"
+        if 'file' not in request.files:
+            return 'No file part'
+        file = request.files['file']
+        if file.filename == '':
+            return 'No selected file'
+        if file:
+            picName = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(picName)
+
+            if q.addRecipe(name, description, videoUrl, cookTime, servings, category, class_, ingredients, instructions, picName):
+                flash(f"Successfully added {name} to the database", "success")
+
 
 # History Related routes
 
