@@ -22,8 +22,8 @@
     </form>
 
     {% for row in displayInfo %}
-      {% for recipe in row%}
-        <div class="row" style="margin-top: 30px;">
+    <div class="row" style="margin-top: 30px;">
+      {% for recipe in row %}
           <div class="col-md-3 py-3 py-md-0">
             <div class="card">
               <img src="{{ recipe.picName }}" alt="{{ recipe.name }} Picture" class="m-3">
@@ -34,8 +34,8 @@
               </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-      {% endfor %}
     {% endfor %}
   </section>
 

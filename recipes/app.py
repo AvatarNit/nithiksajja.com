@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, session, flash, jsonify
 from flask_session import Session
 import queries as q
 import os
@@ -16,18 +16,6 @@ Session(app)
 # Ensure the upload folder exists
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
-
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-#     if 'file' not in request.files:
-#         return 'No file part'
-#     file = request.files['file']
-#     if file.filename == '':
-#         return 'No selected file'
-#     if file:
-#         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-#         file.save(file_path)
-#         return f'File successfully uploaded to {file_path}'
 
 # General Routes
 
@@ -56,6 +44,7 @@ def viewRecipes():
         displayInfo = q.filter(filterCategory, filterClass)
     else:
         displayInfo = q.get_display_info()
+        print(displayInfo)
     categories = q.get_categories()
     return render_template("viewRecipes.html", displayInfo=displayInfo, categories=categories)
 
@@ -70,13 +59,19 @@ def addRecipe():
         cookTime = request.form.get("cookTime", None)
         servings = request.form.get("servings", None)
         category = request.form.get("category", None)
-        class_ = request.form.get("class", None)
-        instructionsCount = request.form.get("instructions-count")
-        ingredientsCount = request.form.get("ingredients-count")
-        for i in range(1,int(instructionsCount)):
-            instructions = instructions + f"_{i}. " + request.form.get(f"instruction-{i}")
-        for i in range(1,int(ingredientsCount)):
-            ingredients = f"{ingredients},{request.form.get('ingredientsNum-' + i)}_{request.form.get('ingredientsMeasure-' + i)}:{request.form.get('ingredientsName-' + i)}"
+        classification = request.form.get("class", None)
+        instructions=""
+        ingredients=""
+        for i in range(1,100):
+            if request.form.get(f"instructions-{i}", False):
+                instructions = instructions + f"_{i}. " + request.form.get(f"instructions-{i}")
+            else:
+                break
+        for i in range(1,100):
+            if request.form.get(f"ingredientsName-{i}", False):
+                ingredients = f"{ingredients},{request.form.get('ingredientsNum-' + str(i))}_{request.form.get('ingredientsMeasure-' + str(i))}_{request.form.get('ingredientsName-' + str(i))}"
+            else:
+                break
         if 'file' not in request.files:
             return 'No file part'
         file = request.files['file']
@@ -86,9 +81,30 @@ def addRecipe():
             picName = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(picName)
 
-            if q.addRecipe(name, description, videoUrl, cookTime, servings, category, class_, ingredients, instructions, picName):
+            if q.addRecipe(name, description, picName, instructions, ingredients, videoUrl, cookTime, servings, category, classification):
                 flash(f"Successfully added {name} to the database", "success")
+                return redirect("/")
 
+
+@app.route("/viewRecipe/<name>")
+def viewRecipe(name):
+    recipe = q.get_recipe_by_name(name)
+    current_recipe = session.get('currentRecipe')
+    for i in range(0, len(recipe["ingredients"])):
+        recipe["ingredients"][i].append(q.get_ingredient_image(recipe["ingredients"][i][-1]))
+        recipe["ingredients"][i].insert(0, recipe["ingredients"][i][-2].replace(" ", "_"))
+    # return recipe
+    return render_template("viewRecipe.html", recipe=recipe, current_recipe=current_recipe)
+
+@app.route('/toggle_favorite', methods=['POST'])
+def toggle_favorite():
+    data = request.json
+    recipe_name = data.get('recipe_name')
+    if session.get('currentRecipe') == recipe_name:
+        session['currentRecipe'] = None
+    else:
+        session['currentRecipe'] = recipe_name
+    return jsonify(status='success')
 
 # History Related routes
 

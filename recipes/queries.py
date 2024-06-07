@@ -23,25 +23,46 @@ def get_categories():
     return result
 
 def get_classes():
-    sql = """SELECT DISTINCT class FROM recipes"""
+    sql = """SELECT DISTINCT classification FROM recipes"""
     result = db.execute(sql)
     return result
 
-def addRecipe(name, description, videoUrl, cookTime, servings, category, class_, ingredients, instructions, picName):
-    sql = """INSERT INTO recipes (name, description, videoUrl, cookTime, servings, category, class, ingredients, instructions, picName) VALUES (?,?,?,?,?,?,?,?,?,?)"""
-    return db.execute(sql, name, description, videoUrl, cookTime, servings, category, class_, ingredients, instructions, picName)
+def addRecipe(name, description, picName, instructions, ingredients, videoUrl=None, cookTime=None, servings=None, category=None, classification=None):
+    sql = """INSERT INTO recipes (name, description, videoUrl, cookTime, servings, category, classification, ingredients, instructions, picName) VALUES (?,?,?,?,?,?,?,?,?,?)"""
+    return db.execute(sql, name, description, videoUrl, cookTime, servings, category, classification, ingredients, instructions, picName)
+
+
 
 def filter(filterCategory, filterClass):
     if filterCategory != "Meal Type" and filterClass != "Requirements":
-        sql = """SELECT name,description,picName FROM recipes WHERE category=? AND class=?"""
+        sql = """SELECT name,description,picName FROM recipes WHERE category=? AND classification=?"""
         result = db.execute(sql,filterCategory,filterClass)
     elif filterCategory!= "Meal Type":
         sql = """SELECT name,description,picName FROM recipes WHERE category=?"""
         result = db.execute(sql,filterCategory)
     elif filterClass!= "Requirements":
-        sql = """SELECT name,description,picName FROM recipes WHERE class=?"""
+        sql = """SELECT name,description,picName FROM recipes WHERE classification=?"""
         result = db.execute(sql,filterClass)
     return split_list(result,4)
+
+def get_recipe_by_name(name):
+    sql = """SELECT * FROM recipes WHERE name=?"""
+    result = db.execute(sql,name)[0]
+    result["ingredients"] = split_ingredients(result["ingredients"])
+    result["instructions"] = result["instructions"].split("_")
+    return result
+
+def split_ingredients(ingredientsStr):
+    ingredientsList = ingredientsStr.split(",")
+    ingredients = []
+    for ingredient in ingredientsList:
+        ingredients.append(ingredient.split("_"))
+    return ingredients
+
+# Ingedredient Database
+def get_ingredient_image(name):
+    sql = """SELECT picLocation FROM ingredients WHERE name=?"""
+    return db.execute(sql,name)[0]["picLocation"]
 
 # Admin Database
 

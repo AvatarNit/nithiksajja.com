@@ -3,8 +3,9 @@
 {% block script %}
 <script>
     let instructionCount = 1;
+    let ingredientCount = 1;
 
-    function addInstructionInput() {
+    function addInstructionInput(event) {
         instructionCount++;
         document.getElementById("instructions-count").value = instructionCount; // Update hidden input
 
@@ -20,80 +21,84 @@
         newTextInput.type = 'text';
         newTextInput.classList.add('form-control');
         newTextInput.name = `instructions-${instructionCount}`;
-        newTextInput.addEventListener('input', addInstructionInput); // Add event listener to trigger input event
+        // newTextInput.required = true;
 
         newInputGroup.appendChild(newIndexInput);
         newInputGroup.appendChild(newTextInput);
 
         container.appendChild(newInputGroup);
+
+        // Remove the event listener from the initial input
+        event.target.removeEventListener('input', addInstructionInput);
+
+        // Add event listener to the newly created input
+        newTextInput.addEventListener('input', addInstructionInput);
     }
 
-    let inputCount = 1;
-    let ingredientCount = 1;
+    function addIngredientInput(event) {
+    if (event.target.value.trim() !== '') {
+        ingredientCount++;
+        document.getElementById("ingredients-count").value = ingredientCount; // Update hidden input
 
-    function addInputField(currentInput, type) {
-        if (currentInput.value.trim() !== '') {
-            const container = document.getElementById(`${type}-input-container`);
+        const container = document.getElementById("ingredients-input-container");
 
-            if (type === 'instructions') {
-                inputCount++;
-                document.getElementById("instructions-count").value = inputCount; // Update hidden input
-            } else if (type === 'ingredients') {
-                ingredientCount++;
-                document.getElementById("ingredients-count").value = ingredientCount; // Update hidden input
-            }
+        const newInputGroup = document.createElement('div');
+        newInputGroup.classList.add('input-group', 'mb-3');
 
-            const newInputGroup = document.createElement('div');
-            newInputGroup.classList.add('input-group', 'mb-3');
+        const newIndexInput = document.createElement('span');
+        newIndexInput.classList.add('input-group-text');
+        newIndexInput.textContent = ingredientCount + '.';
 
-            const newIndexInput = document.createElement('span');
-            newIndexInput.classList.add('input-group-text');
-            newIndexInput.textContent = type === 'instructions' ? inputCount : ingredientCount;
+        const newNumInput = document.createElement('input');
+        newNumInput.type = 'number';
+        newNumInput.classList.add('form-control', 'me-2');
+        newNumInput.name = `ingredientsQty-${ingredientCount}`;
+        newNumInput.placeholder = 'Qty';
 
-            const newNumInput = document.createElement('input');
-            newNumInput.type = 'number';
-            newNumInput.classList.add('form-control', 'me-2');
-            newNumInput.name = `${type}Num-${type === 'instructions' ? inputCount : ingredientCount}`;
-            newNumInput.placeholder = 'Qty';
+        const newMeasureInput = document.createElement('input');
+        newMeasureInput.type = 'text';
+        newMeasureInput.classList.add('form-control', 'me-2');
+        newMeasureInput.name = `ingredientsMeasure-${ingredientCount}`;
+        newMeasureInput.placeholder = 'Measurement';
 
-            const newMeasureInput = document.createElement('input');
-            newMeasureInput.type = 'text';
-            newMeasureInput.classList.add('form-control', 'me-2');
-            newMeasureInput.name = `${type}Measure-${type === 'instructions' ? inputCount : ingredientCount}`;
-            newMeasureInput.placeholder = 'Measurement';
+        const newNameInput = document.createElement('input');
+        newNameInput.type = 'text';
+        newNameInput.classList.add('form-control');
+        newNameInput.name = `ingredientsName-${ingredientCount}`;
+        newNameInput.placeholder = 'Ingredient Name';
 
-            const newNameInput = document.createElement('input');
-            newNameInput.type = 'text';
-            newNameInput.classList.add('form-control');
-            newNameInput.name = `${type}Name-${type === 'instructions' ? inputCount : ingredientCount}`;
-            newNameInput.placeholder = 'Ingredient Name';
+        newInputGroup.appendChild(newIndexInput);
+        newInputGroup.appendChild(newNumInput);
+        newInputGroup.appendChild(newMeasureInput);
+        newInputGroup.appendChild(newNameInput);
 
-            newInputGroup.appendChild(newIndexInput);
-            newInputGroup.appendChild(newNumInput);
-            newInputGroup.appendChild(newMeasureInput);
-            newInputGroup.appendChild(newNameInput);
+        container.appendChild(newInputGroup);
 
-            container.appendChild(newInputGroup);
+        // Remove the event listener from the initial input after adding new inputs
+        event.target.removeEventListener('input', addIngredientInput);
 
-            // Add event listener to the newly created ingredient input
-            if (type === 'ingredients') {
-                newNumInput.addEventListener('input', function() {
-                    addInputField(this, 'ingredients');
-                });
-            }
-        }
+        // Add event listener to the latest ingredient input
+        newNumInput.addEventListener('input', addIngredientInput);
     }
+}
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize the first instruction input field
+        document.getElementById("instructions-input-1").addEventListener('input', addInstructionInput);
+
+        // Initialize the first ingredient input field
+        document.getElementsByName("ingredientsNum-1")[0].addEventListener('input', addIngredientInput);
+    });
 </script>
-
-
-
 {% endblock %}
+
 
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="post" action="/upload" class="p-4 border rounded shadow" enctype="multipart/form-data">
+            <form method="post" action="/addRecipe" class="p-4 border rounded shadow" enctype="multipart/form-data">
                 <h1 class="text-center mb-4">Add Recipe</h1>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Recipe Name" required name="name">
@@ -120,7 +125,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Meal Type</span>
                     <input type="text" aria-label="Meal Type" class="form-control" name="category">
-                    <select class="form-select" id="inputGroupSelect01" name="class">
+                    <select class="form-select" id="inputGroupSelect01" name="classification" required>
                         <option selected disabled>Meal Requirements</option>
                         <option value="Non-Veg">Non-Veg</option>
                         <option value="Veg">Veg</option>
@@ -135,21 +140,20 @@
                 <div id="instructions-input-container">
                     <div class="input-group mb-3">
                         <span class="input-group-text">1.</span>
-                        <input type="text" id="instructions-input-1" oninput="addInstructionInput()" class="form-control" name="instructions-1" required>
+                        <input type="text" id="instructions-input-1" class="form-control" name="instructions-1" required>
                     </div>
                 </div>
-
 
                 <!-- Ingredients Section -->
                 <h2 class="text-center mb-3">Ingredients</h2>
                 <div id="ingredients-input-container">
                     <div class="input-group mb-3">
-                        <span class="input-group-text">1</span>
-                        <input type="number" class="form-control me-2" name="ingredientsNum-1" placeholder="Qty" oninput="addInputField(this, 'ingredients')">
-                        <input type="text" class="form-control me-2" name="ingredientsMeasure-1" placeholder="Measurement">
-                        <input type="text" class="form-control" name="ingredientsName-1" placeholder="Ingredient Name"></div>
+                        <span class="input-group-text">1.</span>
+                        <input type="number" class="form-control me-2" name="ingredientsNum-1" placeholder="Qty" required>
+                        <input type="text" class="form-control me-2" name="ingredientsMeasure-1" placeholder="Measurement" required>
+                        <input type="text" class="form-control" name="ingredientsName-1" placeholder="Ingredient Name" required>
+                    </div>
                 </div>
-
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-danger mt-3">Save Recipe</button>
