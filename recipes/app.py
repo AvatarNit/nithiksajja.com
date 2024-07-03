@@ -181,3 +181,10 @@ def editAcc(id):
 def delAcc(id):
     adminInfo = q.get_admin_info_by_id(id)
     return render_template("delAcc.html", adminInfo=adminInfo)
+
+
+# Conversions
+
+@app.route("/convert")
+def convert():
+    return render_template("convert.html")

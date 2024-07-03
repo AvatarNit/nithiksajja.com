@@ -1,20 +1,22 @@
 {% extends "base.html" %}
 
 {% block script %}
-<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMTnmTAzFs0j3pp7R8L9J2Z9hgqxYOTIW+I5Y9/" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js" integrity="sha384-r6RqeWeci5ZR/Lv4MR0sA0FfDOMTnmTAzFs0j3pp7R8L9J2Z9hgqxYOTIW+I5Y9/" crossorigin="anonymous"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const servingsInput = document.querySelector('input[type="number"]');
-    const measureElements = document.querySelectorAll('.measure');
-    const originalServings = {{ recipe.servings }};
-    const originalMeasures = Array.from(measureElements).map(el => parseFloat(el.textContent));
+    if (servingsInput) {
+        const measureElements = document.querySelectorAll('.measure');
+        const originalServings = {{ recipe.servings }};
+        const originalMeasures = Array.from(measureElements).map(el => parseFloat(el.textContent));
 
-    servingsInput.addEventListener('input', function() {
-        const newServings = parseFloat(servingsInput.value);
-        measureElements.forEach((el, i) => {
-            el.textContent = (originalMeasures[i] * newServings / originalServings).toFixed(2);
+        servingsInput.addEventListener('input', function() {
+            const newServings = parseFloat(servingsInput.value);
+            measureElements.forEach((el, i) => {
+                el.textContent = (originalMeasures[i] * newServings / originalServings).toFixed(2);
+            });
         });
-    });
+    }
 
     const star = document.getElementById("favorite-star");
     const recipeName = '{{ recipe.name }}';
